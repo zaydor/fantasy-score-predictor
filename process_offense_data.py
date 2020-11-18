@@ -3,7 +3,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Preprocess the raw data csv.')
 parser.add_argument('--file', dest='offense_file', action='store', required=True)
-parser.add_argument('--out', dest='output_file', action='store', default='processed_data.csv')
+parser.add_argument('--out', dest='output_file', action='store', default='./data/processed/offense.csv')
 args = parser.parse_args()
 
 df = pd.read_csv(args.offense_file)
