@@ -3,7 +3,7 @@
 #
 
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.model_selection import train_test_split
 
 class FantasyFootballData:
@@ -41,3 +41,25 @@ class FantasyFootballData:
     def get_test_data(self):
         return self.x_test, self.y_test
 
+class PolyFantasyFootballData(FantasyFootballData):
+    """Extend FantasyFootballData to include polynomial features."""
+
+    def __init__(self, csv=FantasyFootballData.default_csv, features=FantasyFootballData.default_features, degree=2):
+        # Read in file
+        self._csv = csv
+        self.df = pd.read_csv(csv)
+
+        # Just get rid of any rows with blank cells.
+        self.df.dropna(inplace=True)
+
+        # Split up and preprocess the data.
+        y = self.df['fp']
+        x = self.df[features]
+        poly = PolynomialFeatures(degree=degree)
+        x = poly.fit_transform(x)
+        scaler = StandardScaler()
+        scaler.fit(x)
+        x = scaler.transform(x)
+
+        self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(x, y, test_size=0.20, random_state=42)
+        
