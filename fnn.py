@@ -1,7 +1,7 @@
 from tensorflow.keras.layers import Input, Dense, Activation, Dropout
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import SGD, Adam
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, r2_score
 import numpy as np
 import pandas as pd
 from fantasy_football_data import FantasyFootballData, FFEvaluation
@@ -23,6 +23,7 @@ print(model.summary())
 history = model.fit(X_train, y_train, batch_size=10, epochs=100, verbose=1, validation_split=0.2)
 
 y_pred = model.predict(X_test)
+print(r2_score(y_test, y_pred))
 print(np.sqrt(mean_squared_error(y_test,y_pred)))
 
 performances = data.get_eval_player_performances()
