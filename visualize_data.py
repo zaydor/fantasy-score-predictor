@@ -22,11 +22,13 @@ plt.clf()
 f, ax = plt.subplots()
 corr = df_all.corr()
 hm = sns.heatmap(round(corr,2), annot=True, ax=ax, cmap='coolwarm', fmt='.2f', linewidths=.05)
+plt.title('Fantasy Football Feature Heat Map')
 plt.show()
 plt.clf()
 
-for data in [df_perf, df_pa, df_game]:
+for name, data in [('Player Performance', df_perf), ('Player Attributes', df_pa), ('Defense', df_game)]:
     sns.pairplot(data)
+#plt.suptitle('Pair-wise Scatter Plot of {} Features'.format(name)) # can't get this to look right
     plt.show()
     plt.clf()
 

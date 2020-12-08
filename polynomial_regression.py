@@ -18,11 +18,14 @@ if __name__ == '__main__':
         train_sizes, train_scores, test_scores = \
             learning_curve(model, data.x_train, data.y_train, random_state=11)
         test_scores_mean = np.mean(test_scores, axis=1)
-        plt.plot(train_sizes, test_scores_mean)   
+        plt.plot(train_sizes, test_scores_mean)
+        model.fit(data.x_train, data.y_train)
+        print('Evaluation score: {}'.format(model.score(data.x_eval, data.y_eval)))
 
     plt.title('Ridge Regression with Polynomial Features')
     plt.legend(['1st degree', '2nd degree', '3rd degree'])
     plt.xlabel('Training samples')
     plt.ylabel('Score')
     plt.show()
+
 

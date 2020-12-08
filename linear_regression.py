@@ -31,7 +31,7 @@ def run_model(data, model_name, model, params):
         plt.plot(cv_results[cv_name], cv_results['mean_test_score'])
         plt.xlabel(param)
         plt.ylabel('score')
-        plt.title('{}: Hyper-parameters vs Score'.format(model_name, param))
+        plt.title('{}: {} vs Score'.format(model_name, param))
         plt.show()
 
     print('\n\n\n')
@@ -52,4 +52,20 @@ if __name__ == '__main__':
     for model in models:
         lm, params = models[model]
         run_model(data, model, lm, params)
+
+    model = LinearRegression()
+    model.fit(data.x_train, data.y_train)
+    print('Linear regression evaluation score: {}'.format(model.score(data.x_eval, data.y_eval)))
+
+    model = Ridge(alpha=200)
+    model.fit(data.x_train, data.y_train)
+    print('Ridge regression evaluation score: {}'.format(model.score(data.x_eval, data.y_eval)))
+
+    model = Lasso(alpha=0.04)
+    model.fit(data.x_train, data.y_train)
+    print('Lasso regression evaluation score: {}'.format(model.score(data.x_eval, data.y_eval)))
+
+    model = ElasticNet(alpha=0.1)
+    model.fit(data.x_train, data.y_train)
+    print('Elastic Net regression evaluation score: {}'.format(model.score(data.x_eval, data.y_eval)))
 
