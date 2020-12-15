@@ -9,8 +9,6 @@ df = pd.read_csv('./data/processed/training_data.csv', sep=',')
 
 columns_to_drop = ['uid', 'gid', 'week', 'player', 'name', 'position1', 'year', 'team']
 
-# 2540 total rows.. 90% to training = 2286 (200 to validate, 2086 to train), 10% to testing = 254
-
 # drop columns we do not need for features
 df.drop(columns=columns_to_drop, inplace=True)
 
@@ -27,8 +25,10 @@ X = X[0]
 y = y[0]
 
 # separate into training and testing samples
+# 2540 total rows.. 90% to training = 2286 (200 to validate, 2086 to train), 10% to testing = 254
 trainX = X[200:2286]  # training samples
 trainY = y[200:2286]  # labels for training samples
+
 validateX = X[:200]  # validation samples
 validateY = y[:200]  # labels for validation samples
 
