@@ -1,3 +1,12 @@
+"""
+Authors: Isaiah Thomas and Dillon Johnson
+File: support_vector_regression.py
+Date: 12/18/2020
+Class: CS596
+
+Train SVR models with various kernels.
+"""
+
 import pandas as pd
 from sklearn.utils import shuffle
 import numpy as np

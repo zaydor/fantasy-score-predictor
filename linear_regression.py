@@ -1,6 +1,11 @@
-#
-# Linear Regression Model for RB performance in fantasy football.
-#
+"""
+Authors: Isaiah Thomas and Dillon Johnson
+File: linear_regression.py
+Date: 12/18/2020
+Class: CS596
+
+Run Linear, Ridge, Lasso, and Elastic Net models with various hyper-parameters.
+"""
 
 from fantasy_football_data import FantasyFootballData
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet, HuberRegressor
@@ -12,6 +17,8 @@ import matplotlib.pyplot as plt
 
 
 def run_model(data, model_name, model, params):
+    """Train the model with the specified hyper parameter sets."""
+
     X_train, X_eval, y_train, y_eval = data.get_training_data(random_state=11)
 
     cv = GridSearchCV(estimator=model, param_grid=params, return_train_score=True)
@@ -38,7 +45,6 @@ def run_model(data, model_name, model, params):
 
 if __name__ == '__main__':
     data = FantasyFootballData(features=FantasyFootballData.all_features)
-    #data = FantasyFootballData()
 
     models = {
         'Linear': (LinearRegression(), {}),
@@ -47,10 +53,12 @@ if __name__ == '__main__':
         'Elastic_net': (ElasticNet(), {'alpha': [0.001, 0.005, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4]}),
     }
 
+    # Identify the best hyper parameters over the training set.
     for model in models:
         lm, params = models[model]
         run_model(data, model, lm, params)
 
+    # Run the tuned models on the validation set.
     model = LinearRegression()
     model.fit(data.x_train, data.y_train)
     print('Linear regression evaluation score: {}'.format(model.score(data.x_eval, data.y_eval)))

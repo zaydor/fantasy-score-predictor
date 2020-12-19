@@ -1,3 +1,12 @@
+"""
+Authors: Isaiah Thomas and Dillon Johnson
+File: visualize_data.py
+Date: 12/18/2020
+Class: CS596
+
+Create visualizations for fantasy football training data.
+"""
+
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt

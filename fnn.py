@@ -1,3 +1,12 @@
+"""
+Authors: Isaiah Thomas and Dillon Johnson
+File: fnn.py
+Date: 12/18/2020
+Class: CS596
+
+Train and Test a Feed Forward Neural Network for making fantasy football predictions.
+"""
+
 from tensorflow.keras.layers import Input, Dense, Activation, Dropout
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import SGD, Adam
@@ -8,6 +17,7 @@ import argparse
 from fantasy_football_data import FantasyFootballData, FFEvaluation
 
 def create_model(input_shape):
+    """Set up the neural network architecture."""
     input_layer = Input(shape=input_shape)
     dense_layer_1 = Dense(4, activation='relu')(input_layer)
     dense_layer_2 = Dense(4, activation='relu')(dense_layer_1)
@@ -21,6 +31,8 @@ def create_model(input_shape):
     return model
 
 def train():
+    """Train a FNN model and print/plot the results."""
+
     data = FantasyFootballData()
     X_train, X_test, y_train, y_test = data.get_training_data(random_state=11)
 
@@ -43,6 +55,8 @@ def train():
     model.save_weights('./fnn_models/fnn')
 
 def test(saved_model):
+    """Run the specified model on the test set and print the results."""
+
     data = FantasyFootballData()
     X_test, y_test = data.get_test_data()
     model = create_model((X_test.shape[1],))

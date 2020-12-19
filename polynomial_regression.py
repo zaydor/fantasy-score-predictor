@@ -1,6 +1,11 @@
-#
-# Linear Regression Model for RB performance in fantasy football.
-#
+"""
+Authors: Isaiah Thomas and Dillon Johnson
+File: polynomial_regression.py
+Date: 12/18/2020
+Class: CS596
+
+Run a Ridge Regression model with various degrees of Polynomial Features.
+"""
 
 from fantasy_football_data import PolyFantasyFootballData
 from sklearn.linear_model import Ridge
@@ -9,6 +14,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 if __name__ == '__main__':
+    """Train model with polynomial features and plot learning curve."""
+
     degrees = [1,2,3]
 
     scores = []

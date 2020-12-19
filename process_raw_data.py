@@ -1,8 +1,18 @@
+"""
+Authors: Isaiah Thomas and Dillon Johnson
+File: process_raw_data.py
+Date: 12/18/2020
+Class: CS596
+
+Read the raw databases and process them for model training.
+"""
+
 import pandas as pd
 import argparse
 from statistics import mean
 
 def get_previous_week_and_year(week, year):
+    """Return the previous week and year, may go back to previous season."""
     if week > 1:
         week = week - 1
     else:
@@ -11,7 +21,7 @@ def get_previous_week_and_year(week, year):
     return week, year
 
 def get_opponent_dst_stats_for_previous_weeks(opponent, week, year, df_dst):
-    ''' Collect the 3 previous weeks of opponent's dst performances.'''
+    """Collect the 3 previous weeks of opponent's dst performances."""
     weeks = [(week + i) % 17 + 1 for i in range(12,16)] # grab the 4 previous weeks, in case of bye
     years = [year] * 4
 
@@ -126,3 +136,4 @@ if __name__ == '__main__':
     df_final = df_final[cols + ['fp']]
 
     df_final.to_csv(args.output_file, index=False)
+

@@ -1,6 +1,11 @@
-#
-# Helper methods to get consistent training and test data.
-#
+"""
+Authors: Isaiah Thomas and Dillon Johnson
+File: 
+Date: 12/18/2020
+Class: CS596
+
+Helper methods to get consistent training, validation, and test data.
+"""
 
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
