@@ -29,6 +29,11 @@ Defensive data from: Stathead https://stathead.com/football/
 - Python 3.8.0
 - All packages in requirements.txt
 
+## Environment
+We used Ubuntu 18.04 and recommend similar. We expect most Linux distributions should "just work."
+This project should run on Windows since it is python based, but we did not test this and your
+mileage may vary.
+
 ## Recommendations
 We recommend creating a virtual environment with virtualenv to install the required packages.
 ```
