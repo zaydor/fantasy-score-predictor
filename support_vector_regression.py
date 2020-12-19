@@ -2,36 +2,9 @@ import pandas as pd
 from sklearn.utils import shuffle
 import numpy as np
 from sklearn import svm
+import matplotlib.pyplot as plt
 from fantasy_football_data import FantasyFootballData
 
-# read training data
-#df = pd.read_csv('./data/processed/training_data.csv', sep=',')
-#
-#columns_to_drop = ['uid', 'gid', 'week', 'player', 'name', 'position1', 'year', 'team']
-#
-## 2540 total rows.. 80 training = 2032, 20 testing = 508
-#
-## drop columns we do not need for features
-#df.drop(columns=columns_to_drop, inplace=True)
-#
-## randomize data frame and reset the indices
-#df = shuffle(df)
-#df = df.reset_index()
-#
-## separate stats/player attributes from fantasy points
-#X = [df.iloc[:, 0:24]]
-#y = [df.iloc[:, 24]]
-#X = np.nan_to_num(X)
-#y = np.nan_to_num(y)
-#X = X[0]
-#y = y[0]
-#
-## separate into training and testing samples
-#trainX = X[:2032]  # training samples
-#trainY = y[:2032]  # labels for training samples
-#
-#testX = X[2032:]  # testing samples
-#testY = y[2032:]  # labels for testing samples
 data = FantasyFootballData()
 
 # perform SVR using different kernels
@@ -40,3 +13,33 @@ for k in ['linear', 'rbf', 'poly']:
   clf.fit(data.x_train, data.y_train)
   confidence = clf.score(data.x_eval, data.y_eval)
   print(k, confidence)
+
+# perform SVR using different kernels
+kernel_types = ['linear', 'poly', 'rbf']
+svm_kernel_error = []
+prediction = []
+for kernel_value in kernel_types:
+  clf = svm.SVR(kernel=kernel_value)
+  clf.fit(data.x_train, data.y_train)
+  accuracy = clf.score(data.x_eval, data.y_eval)
+  error = 1 - accuracy
+  print(kernel_value, accuracy)
+  svm_kernel_error.append(accuracy)
+  prediction.append(clf.predict(data.x_eval))
+
+# plot a prediction vs actual value graph
+plt.scatter(prediction[0], data.y_eval, color='black')
+x = np.linspace(-1, 30, 100)
+plt.plot(x, x, color='blue')
+plt.title('Fantasy Score Predictions vs Actual Score')
+plt.xlabel('Prediction')
+plt.ylabel('Actual Value')
+plt.show()
+
+# plot a kernel accuracy comparison graph
+plt.plot(kernel_types, svm_kernel_error)
+plt.title('SVR by Kernels')
+plt.xlabel('Kernel')
+plt.ylabel('Accuracy')
+plt.xticks(kernel_types)
+plt.show()
